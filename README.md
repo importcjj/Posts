@@ -86,3 +86,4 @@ and then the html mail with attachment 1, 2, 3 will be sent ot
 * add **alias** for **recipient**.
 * add **carbon copy**.
 * add usage without **with**.
+* support attachments in **file obj type**.

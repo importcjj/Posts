@@ -64,7 +64,7 @@ Maybe you need to send mail by ssl, don't worry:
 .. code:: python
 
 	with mail(ssl=True) as box:
-		box.text('to_address')
+		box.text('to_address', subject='Subject', content='Content')
 
 Chain Useage
 ------------
@@ -87,4 +87,5 @@ TODO
 ----
 
 - add **alias** for recipient.
-
+- add **carbon copy**.
+- add usage without **with**.

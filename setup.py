@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-version = '0.1.1'
+version = '0.1.5'
 
 setup(
     name='posts',
@@ -13,7 +13,7 @@ setup(
     author_email='jiaju.chen@ele.me',
     url='https://github.com/importcjj/Post',
 
-    lisence='BSD2',
+    license='BSD2',
     packages=find_packages(),
     include_package_data=True,
     zip_safe=False,

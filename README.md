@@ -2,28 +2,35 @@
 
 Posts is a Python library for send 📧mail easily.
 
+## Installation
 
+- ``GitHub:`` https://github.com/importcjj/Posts
+- ``PyPi`` https://pypi.python.org/pypi/posts
+
+```sh
+pip install posts
+```
 ## Examples
 
-Here is the first one to send a mail which just contains text:
+Here is the first one to send a mail in **text**:
 
 ```python
 
 from posts import Posts
 
-mail = Posts('smtp.qq.com', 'your-username', 'your-passwd')
+mail = Posts('smtp-server', 'your-username', 'your-passwd')
 
 with mail() as box:
 	box.text('to_address', subject='Subject', content='Content')
 ```
 
-Posts does not only support Text mail, but also Html mail
+Posts does not only support mail in **text** type, but also support **html**:
 
 ```python
 box.html('to_address', subject='Subject', content='Content')
 ```
 
-Next, we can send a Text mail with attachments:
+Next, we can send a mail with **attachments**:
 
 ```python
 with mail() as box:
@@ -52,11 +59,16 @@ with mail(ssl=True) as box:
 ```
 ## Chain
 
-Just try like this:</br>
-	**box.attach(\*\*kwargs).attach(\*\*kwargs).text(\*\*kwargs)**
+Just try like this:
+
+```python
+box.attach(**kwargs).\
+	attach(**kwargs).\
+	text(**kwargs)
+```
 	
 ## Contibute
 
 ### License
 
-Posts is **BSD**, see LICENSE for more details.
+Is **BSD2**, see LICENSE for more details.

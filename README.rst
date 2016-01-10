@@ -1,33 +1,42 @@
-======
- Posts
+
+Posts
 ======
 
 Posts is a Python library for send mail easily.
 
+Installation
+------------
 
- Examples
-~~~~~~~~~
+- ``GitHub:`` https://github.com/importcjj/Posts
+- ``PyPi`` https://pypi.python.org/pypi/posts
 
-Here is the first one to send a mail which just contains text:
+.. code:: sh
+
+	pip install posts
+
+Examples
+--------
+
+Here is the first one to send a mail in **text**:
 
 .. code:: python
 
 	from posts import Posts
 
-	mail = Posts('smtp.qq.com', 'your-username', 'your-passwd')
+	mail = Posts('smtp-server', 'your-username', 'your-passwd')
 
 	with mail() as box:
 		box.text('to_address', subject='Subject', content='Content')
 
 
-Posts does not only support Text mail, but also Html mail
+Posts does not only support mail in **text** type, but also support **html**:
 
 .. code:: python
 	
 	box.html('to_address', subject='Subject', content='Content')
 
 
-Next, we can send a Text mail with attachments:
+Next, we can send a mail with **attachments**:
 
 .. code:: python
 
@@ -36,7 +45,7 @@ Next, we can send a Text mail with attachments:
 		box.text('to_address')
 
 
-Finally, we can send the Html mail with image:
+Finally, we can send the mail in html type with image:
 
 .. code:: python
 
@@ -56,17 +65,16 @@ Maybe you need to send mail by ssl, don't worry:
 	with mail(ssl=True) as box:
 		box.text('to_address')
 
- Chain
-~~~~~~~
+Chain Useage
+------------
 
 Just try like this:
 
-	**box.attach(\*\*kwargs).attach(\*\*kwargs).text(\*\*kwargs)**
+.. code:: python
+
+	box.attach(**kwargs).\
+		attach(**kwargs).\
+		text(**kwargs)
 	
- Contibute
-~~~~~~~~~~
 
- License
-----------
 
-Posts is **BSD**, see LICENSE for more details.

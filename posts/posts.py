@@ -10,12 +10,13 @@ from email.mime.application import MIMEApplication
 
 class PostSMTP(smtplib.SMTP):
 
-    def __init__(self, sender, alias=None, host='', port=0, local_hostname=None,
-                 timeout=socket._GLOBAL_DEFAULT_TIMEOUT):
+    def __init__(self, sender, alias=None, host='', port=0,
+                 local_hostname=None, timeout=socket._GLOBAL_DEFAULT_TIMEOUT):
         smtplib.SMTP.__init__(self, host, port, local_hostname, timeout)
         self._sender = sender
         self._sender_alias = alias if alias else sender
         self._attachments = {}
+        self._mails = []
 
     def attach(self, attachments):
         """Add attachments.
@@ -30,36 +31,58 @@ class PostSMTP(smtplib.SMTP):
             self._attachments[k] = v
         return self
 
-    def _pay_load(self, msg):
+    def _header(self, msg, recipient, subject):
+        msg['Subject'] = subject
+        msg['From'] = '{} <{}>'.format(self._sender_alias, self._sender)
+        msg['To'] = ', '.\
+            join(recipient) if isinstance(recipient, list) else recipient
+        return msg
+
+    def _mount(self, mail, files):
+        for _ in files:
+            mail['msg'].attach(_)
+        return mail
+
+    def _load_files(self):
+        files = []
         for k, v in self._attachments.iteritems():
             with open(v, 'rb') as f:
                 part = MIMEApplication(f.read())
             part.add_header('Content-Disposition', 'attachment', filename=k)
             part.add_header('Content-ID', '<{}>'.format(k))
-            msg.attach(part)
-        return msg
-
-    def _header(self, msg, recipient, subject):
-        msg['Subject'] = subject
-        msg['From'] = '{} <{}>'.format(self._sender_alias, self._sender)
-        msg['To'] = ', '.join(recipient) if isinstance(recipient, list) else recipient
-        return msg
+            files.append(part)
+        return files
 
     def text(self, recipient, subject, content, charset='us-ascii'):
+        _text = MIMEText(content, _subtype='plain', _charset=charset)
         _msg = MIMEMultipart()
         _msg = self._header(_msg, recipient, subject)
-        _text = MIMEText(content, _subtype='plain', _charset=charset)
         _msg.attach(_text)
-        _msg = self._pay_load(_msg)
-        self.sendmail(self._sender, recipient, _msg.as_string())
+        self._mails.append({
+            'recipient': recipient,
+            'msg': _msg
+        })
+        return self
 
     def html(self, recipient, subject, content, charset='utf-8'):
+        _html = MIMEText(content, _subtype='html', _charset=charset)
         _msg = MIMEMultipart()
         _msg = self._header(_msg, recipient, subject)
-        _html = MIMEText(content, _subtype='html', _charset=charset)
         _msg.attach(_html)
-        _msg = self._pay_load(_msg)
-        self.sendmail(self._sender, recipient, _msg.as_string())
+        self._mails.append({
+            'recipient': recipient,
+            'msg': _msg
+        })
+        return self
+
+    def _send(self):
+        files = self._load_files()
+        for mail in self._mails:
+            self._mount(mail, files)
+            self.sendmail(
+                self._sender,
+                mail['recipient'],
+                mail['msg'].as_string())
 
 
 class Posts(object):
@@ -82,5 +105,6 @@ class Posts(object):
         self._smtp.login(self._username, self._password)
         try:
             yield self._smtp
+            self._smtp._send()
         finally:
             self._smtp.quit()

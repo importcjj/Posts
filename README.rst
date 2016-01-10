@@ -72,9 +72,14 @@ Just try like this:
 
 .. code:: python
 
-	box.attach(**kwargs).\
-		attach(**kwargs).\
-		text(**kwargs)
+box.attach({
+		'name1': '/path/to/file1',
+		'name2': '/path/to/file2'}).\
+	attach({'name3': '/path/to/file3'}).\
+	text('to_address', 'subject', 'content').\
+	html(['to_address1', 'to_address2'], 'subject', 'content')
 	
-
+The text mail with attachment 1, 2, 3 will send to address,
+and then the html mail with attachment 1, 2, 3 will be sent ot
+address1, address2 together.
 

@@ -42,10 +42,11 @@ Next, we can send a mail with **attachments**:
 
 	with mail() as box:
 		box.attach({'example.jpg': './example.jpg})
-		box.text('to_address')
+		box.text('to_address', subject='Subject', content='Content')
 
 
-Finally, we can send the mail in html type with image:
+Finally, we can send the Html mail with image. and
+in the example, we also use a **alias** for the sender:
 
 .. code:: python
 
@@ -72,14 +73,18 @@ Just try like this:
 
 .. code:: python
 
-box.attach({
-		'name1': '/path/to/file1',
-		'name2': '/path/to/file2'}).\
-	attach({'name3': '/path/to/file3'}).\
-	text('to_address', 'subject', 'content').\
-	html(['to_address1', 'to_address2'], 'subject', 'content')
+	box.attach({'name1': '/path/to/file1',
+				'name2': '/path/to/file2'}).\
+		attach({'name3': '/path/to/file3'}).\
+		text('to_address', 'subject', 'content').\
+		html(['to_address1', 'to_address2'], 'subject', 'content')
 	
 The text mail with attachment 1, 2, 3 will send to address,
 and then the html mail with attachment 1, 2, 3 will be sent ot
 address1, address2 together.
+
+TODO
+----
+
+- add **alias** for recipient.
 

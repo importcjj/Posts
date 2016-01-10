@@ -18,7 +18,7 @@ Here is the first one to send a mail in **text**:
 
 from posts import Posts
 
-mail = Posts('smtp-server', 'your-username', 'your-passwd')
+mail = Posts('smtp-server', your-username', 'your-passwd', port=25)
 
 with mail() as box:
 	box.text('to_address', subject='Subject', content='Content')
@@ -35,10 +35,11 @@ Next, we can send a mail with **attachments**:
 ```python
 with mail() as box:
 	box.attach({'example.jpg': './example.jpg})
-	box.text('to_address')
+	box.text('to_address', subject='Subject', content='Content')
 ```
 
-Finally, we can send the Html mail with image:
+Finally, we can send the Html mail with image. and
+in the example, we also use a **alias** for the sender:
 
 ```python
 with mail(alias='alias') as box:
@@ -78,4 +79,8 @@ and then the html mail with attachment 1, 2, 3 will be sent ot
 
 ### License
 
-Is **BSD2**, see LICENSE for more details.
+**BSD2**, see [LICENSE]() for more details.
+
+## TODO
+
+* add **alias** for recipient.

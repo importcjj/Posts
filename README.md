@@ -71,7 +71,7 @@ box.attach({
 	html(['to_address1', 'to_address2'], 'subject', 'content')
 ```
 
-The text mail with attachment 1, 2, 3 will send to [to_address](),
+The text mail with attachment 1, 2, 3 will send to [address](),
 and then the html mail with attachment 1, 2, 3 will be sent ot
 [address1](), [address2]() together.
 

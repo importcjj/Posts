@@ -78,9 +78,7 @@ and then the html mail with attachment 1, 2, 3 will be sent ot
 
 ## Contibute
 
-### License
-
-**BSD2**, see [LICENSE]() for more details.
+License：*BSD2*, see [LICENSE]() for more details.
 
 ## TODO
 

@@ -14,7 +14,7 @@ class PostSMTP(smtplib.SMTP):
                  local_hostname=None, timeout=socket._GLOBAL_DEFAULT_TIMEOUT):
         smtplib.SMTP.__init__(self, host, port, local_hostname, timeout)
         self._sender = sender
-        self._sender_alias = alias if alias else sender
+        self._sender_alias = alias if alias else sender.split('@')[0]
         self._attachments = {}
         self._mails = []
 

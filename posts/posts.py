@@ -27,7 +27,11 @@ class PostSMTP(smtplib.SMTP):
         Returns:
             obj to support chain calling.
         """
-        for k, v in attachments.iteritems():
+        try:
+            iteritems = attachments.iteritems()
+        except AttributeError:
+            iteritems = attachments.items()
+        for k, v in iteritems:
             self._attachments[k] = v
         return self
 
@@ -45,7 +49,11 @@ class PostSMTP(smtplib.SMTP):
 
     def _load_files(self):
         files = []
-        for k, v in self._attachments.iteritems():
+        try:
+            iteritems = self._attachments.iteritems()
+        except AttributeError:
+            iteritems = self._attachments.items()
+        for k, v in iteritems:
             with open(v, 'rb') as f:
                 part = MIMEApplication(f.read())
             part.add_header('Content-Disposition', 'attachment', filename=k)

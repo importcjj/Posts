@@ -1,4 +1,5 @@
-# 📬 Posts
+# 📬 Posts  
+![](https://travis-ci.org/importcjj/Posts.svg)
 
 Posts is a Python library for send 📧mail easily.
 
@@ -77,9 +78,7 @@ and then the html mail with attachment 1, 2, 3 will be sent ot
 
 ## Contibute
 
-### License
-
-**BSD2**, see [LICENSE]() for more details.
+License：*BSD2*, see [LICENSE]() for more details.
 
 ## TODO
 

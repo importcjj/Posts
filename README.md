@@ -1,5 +1,6 @@
 # 📬 Posts  
 ![](https://travis-ci.org/importcjj/Posts.svg)
+[![PyPI version](https://badge.fury.io/py/posts.svg)](https://badge.fury.io/py/posts)
 
 Posts is a Python library for send 📧mail easily.
 
